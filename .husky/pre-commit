@@ -1,0 +1,1 @@
+npm run lint-staged --prefix apps/nextjs-app && npm run lint-staged --prefix apps/nextjs-pages && npm run lint-staged --prefix apps/react-vite

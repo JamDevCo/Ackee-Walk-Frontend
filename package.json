@@ -2,18 +2,24 @@
   "name": "ackee-walk-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "engines": {
-    "node": "18.x",
-    "npm": "please-use-npm"
+    "node": "18.17.x",
+    "npm": "9.6.x"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "check-types": "tsc --project tsconfig.json --pretty --noEmit"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.5",
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18"
