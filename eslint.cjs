@@ -10,7 +10,7 @@ module.exports = {
     'public/mockServiceWorker.js',
     'generators/*',
   ],
-  extends: ['eslint:recommended', 'next/core-web-vitals'],
+  extends: ['eslint:recommended', 'next/core-web-vitals', 'next'],
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
@@ -39,7 +39,6 @@ module.exports = {
         'plugin:testing-library/react',
         'plugin:jest-dom/recommended',
         'plugin:tailwindcss/recommended',
-        'plugin:vitest/legacy-recommended',
       ],
       rules: {
         '@next/next/no-img-element': 'off',
