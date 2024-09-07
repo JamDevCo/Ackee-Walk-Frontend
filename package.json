@@ -12,8 +12,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prepare": "husky",
     "prettier": "prettier --write .",
-    "check-types": "tsc --project tsconfig.json --pretty --noEmit"
+    "check-types": "tsc --project tsconfig.json --pretty --noEmit",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -30,6 +32,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
