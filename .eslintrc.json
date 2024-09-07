@@ -1,3 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "globals": {
+    // Auto imports React in TSX files
+    "React": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": "warn"
+  }
 }
