@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import SalaryDetailsSidebar from './SalaryDetailsSidebar'
 import Salary from '@/types/Salary'
 import { ComboboxSelect } from "@/components/ComboboxSelect"
+import { Eye } from 'lucide-react'
 
 interface SalaryListViewProps {
   salaries: Salary[]
@@ -87,6 +88,7 @@ const SalaryListView: React.FC<SalaryListViewProps> = ({ salaries }) => {
                   <TableCell>${salary.base_salary.toLocaleString()}</TableCell>
                   <TableCell>{salary.location.city}, {salary.location.country}</TableCell> 
                   <TableCell>{salary.experience_level.name}</TableCell>
+                  <TableCell><Eye className="text-gray-500" size={20} /></TableCell>
                 </TableRow>
               ))}
             </TableBody>

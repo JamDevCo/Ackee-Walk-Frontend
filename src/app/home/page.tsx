@@ -3,9 +3,14 @@ import React from 'react'
 import MainLayout from '../layouts/MainLayout'
 import SalaryListView from '@/components/SalaryListView'
 import { useSalaryContext } from '../../contexts/SalaryContext'
+import Salary from '@/types/Salary' // Ensure correct import
 
 const HomePage: React.FC = () => {
-  const { salaries, loading, error } = useSalaryContext()
+  const { salaries, loading, error } = useSalaryContext() as unknown as { 
+    salaries: Salary[]; 
+    loading: boolean; 
+    error: string | null; 
+  }
 
   return (
     <MainLayout>

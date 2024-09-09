@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { Home, BarChart2, Users, PlusCircle } from 'lucide-react'
+import { Home, BarChart2, Users, PlusCircle, Calculator, Briefcase } from 'lucide-react'
 
 const Sidebar: React.FC = () => {
   return (
@@ -26,6 +26,14 @@ const Sidebar: React.FC = () => {
         <Link href="/submission" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
           <PlusCircle className="inline-block mr-2" size={20} />
           Submit Salary
+        </Link>
+        <Link href="/calculator" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+          <Calculator className="inline-block mr-2" size={20} />
+          Tax Calculator
+        </Link>
+        <Link href="/jobs" className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200">
+          <Briefcase className="inline-block mr-2" size={20} />
+          Jobs
         </Link>
       </nav>
     </div>
