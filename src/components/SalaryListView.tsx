@@ -1,8 +1,7 @@
+"use client"
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface Salary {
   id: number
@@ -21,20 +20,6 @@ const SalaryListView: React.FC<SalaryListViewProps> = ({ salaries }) => {
     <Card>
       <CardHeader>
         <CardTitle>Salary List</CardTitle>
-        <div className="flex space-x-2 mt-6">
-          <Input placeholder="Search job titles..." className="max-w-sm" />
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Location" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Locations</SelectItem>
-              <SelectItem value="new-york">New York</SelectItem>
-              <SelectItem value="san-francisco">San Francisco</SelectItem>
-              <SelectItem value="chicago">Chicago</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
       </CardHeader>
       <CardContent>
         <Table>
