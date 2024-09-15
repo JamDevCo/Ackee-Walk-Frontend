@@ -23,6 +23,7 @@ interface FormData {
   location_id: string;
   industry_id: string;
   experience_id: string;
+  email: string;
 }
 
 interface Option {
@@ -48,12 +49,14 @@ const SalarySubmissionForm: React.FC = () => {
     location_id: '',
     industry_id: '',
     experience_id: '',
+    email: '',
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [companies, setCompanies] = useState<Option[]>([]);
   const [locations, setLocations] = useState<Option[]>([]);
   const [industries, setIndustries] = useState<Option[]>([]);
   const [experienceLevels, setExperienceLevels] = useState<Option[]>([]);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
     const fetchOptions = async () => {
@@ -104,7 +107,8 @@ const SalarySubmissionForm: React.FC = () => {
         };
         await submitSalary(submissionData);
         console.log('Salary submitted successfully');
-        // Reset form or show success message
+        setSubmitSuccess(true);
+        // Reset form
         setFormData({
           title: '',
           total_yearly_compensation: '',
@@ -121,14 +125,27 @@ const SalarySubmissionForm: React.FC = () => {
           location_id: '',
           industry_id: '',
           experience_id: '',
+          email: '',
         });
       } catch (err) {
         console.error('Error submitting salary:', err);
+        setSubmitSuccess(false);
       }
     } else {
       console.log('Form validation failed', errors);
     }
   };
+
+  if (submitSuccess) {
+    return (
+      <div className="bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-md">
+        <h2 className="text-xl font-bold mb-2">Submission Successful!</h2>
+        <p className="mb-2">Thank you for submitting your salary information.</p>
+        <p className="mb-4">Please check your email to verify your submission.</p>
+        <p className="text-sm italic">Note: Your email is only used for verification and is not attached to the submission.</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -265,13 +282,25 @@ const SalarySubmissionForm: React.FC = () => {
         />
         {errors.experience_id && <p className="text-red-500">{errors.experience_id}</p>}
       </div>
-
+      <div>
+        <label htmlFor="email">Email</label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Your email address"
+        />
+        {errors.email && <p className="text-red-500">{errors.email}</p>}
+      </div>
       {submissionError && <p className="text-red-500">{submissionError}</p>}
       <Button type="submit" disabled={loading}>
         {loading ? 'Submitting...' : 'Submit Salary Information'}
       </Button>
+      
     </form>
-  )
+  );
 }
 
 export default SalarySubmissionForm
