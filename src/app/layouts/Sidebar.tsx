@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
   { href: "/", label: "Home", icon: Home },
   { href: "/salaries", label: "Salaries", icon: BarChart2 },
   { href: "/companies", label: "Companies", icon: Users },
-  { href: "/submission", label: "Submit Salary", icon: PlusCircle },
+  { href: "/salaries/form", label: "Submit Salary", icon: PlusCircle },
   {
     href: "#",
     label: "Calculators",

@@ -2,11 +2,11 @@
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import SalarySubmissionForm from '@/components/SalarySubmissionForm'
-import MainLayout from '@/app/layouts/MainLayout'
+import SimpleLayout from '@/app/layouts/SimpleLayout'
 
 export default function SalarySubmissionPage() {
   return (
-    <MainLayout>
+    <SimpleLayout>
       <div className="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold mb-6">Submit Salary Information</h1>
         <Card>
@@ -18,6 +18,6 @@ export default function SalarySubmissionPage() {
           </CardContent>
         </Card>
       </div>
-    </MainLayout>
+    </SimpleLayout>
   )
 }
