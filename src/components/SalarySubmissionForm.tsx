@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { useSalarySubmissionContext } from '@/contexts/SalarySubmissionContext'
 import { ComboboxSelect } from "@/components/ComboboxSelect"
+import { ReloadIcon } from '@radix-ui/react-icons'
 
 interface FormData {
   title: string;
@@ -148,142 +149,169 @@ const SalarySubmissionForm: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="title">Job Title</label>
-        <Input
-          id="title"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="e.g. Software Engineer"
-        />
-        {errors.title && <p className="text-red-500">{errors.title}</p>}
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Job Title</label>
+            <Input
+              id="title"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              placeholder="e.g. Software Engineer"
+              className="mt-1"
+            />
+            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="total_yearly_compensation" className="block text-sm font-medium text-gray-700">Total Yearly Compensation</label>
+            <Input
+              id="total_yearly_compensation"
+              name="total_yearly_compensation"
+              type="number"
+              value={formData.total_yearly_compensation}
+              onChange={handleChange}
+              className="mt-1"
+            />
+            {errors.total_yearly_compensation && <p className="text-red-500 text-sm mt-1">{errors.total_yearly_compensation}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="base_salary" className="block text-sm font-medium text-gray-700">Base Salary</label>
+            <Input
+              id="base_salary"
+              name="base_salary"
+              type="number"
+              value={formData.base_salary}
+              onChange={handleChange}
+              className="mt-1"
+            />
+            {errors.base_salary && <p className="text-red-500 text-sm mt-1">{errors.base_salary}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="education_level" className="block text-sm font-medium text-gray-700">Education Level</label>
+            <div className="mt-1">
+            <Select onValueChange={(value) => setFormData(prev => ({ ...prev, education_level: value }))}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select education level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="high_school">High School</SelectItem>
+                <SelectItem value="bachelors">Bachelor&apos;s Degree</SelectItem>
+                <SelectItem value="masters">Master&apos;s Degree</SelectItem>
+                <SelectItem value="phd">PhD</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.education_level && <p className="text-red-500 text-sm mt-1">{errors.education_level}</p>}
+          </div>
+        
+          </div>
+
+          <div>
+            <label htmlFor="years_of_experience" className="block text-sm font-medium text-gray-700">Years of Experience</label>
+            <Input
+              id="years_of_experience"
+              name="years_of_experience"
+              type="number"
+              value={formData.years_of_experience}
+              onChange={handleChange}
+              className="mt-1"
+            />
+            {errors.years_of_experience && <p className="text-red-500 text-sm mt-1">{errors.years_of_experience}</p>}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="years_at_company" className="block text-sm font-medium text-gray-700">Years at Company</label>
+            <Input
+              id="years_at_company"
+              name="years_at_company"
+              type="number"
+              value={formData.years_at_company}
+              onChange={handleChange}
+              className="mt-1"
+            />
+            {errors.years_at_company && <p className="text-red-500 text-sm mt-1">{errors.years_at_company}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="company_id" className="block text-sm font-medium text-gray-700">Company</label>
+            <div className="mt-1">
+              <ComboboxSelect
+                options={companies.map(company => ({ value: company.id, label: company.name }))}
+                placeholder="Select company..."
+                emptyMessage="No company found."
+                value={formData.company_id}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, company_id: value }))}
+              />
+              {errors.company_id && <p className="text-red-500 text-sm mt-1">{errors.company_id}</p>}
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="location_id" className="block text-sm font-medium text-gray-700">Location</label>
+            <div className="mt-1">
+              <ComboboxSelect
+                options={locations.map(location => ({ value: location.id, label: location.name }))}
+              placeholder="Select location..."
+                emptyMessage="No location found."
+                value={formData.location_id}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, location_id: value }))}
+              />
+            {errors.location_id && <p className="text-red-500 text-sm mt-1">{errors.location_id}</p>}
+          </div>
+          </div>
+
+          <div>
+            <label htmlFor="industry_id" className="block text-sm font-medium text-gray-700">Industry</label>
+            <div className="mt-1">
+              <ComboboxSelect
+                options={industries.map(industry => ({ value: industry.id, label: industry.name }))}
+              placeholder="Select industry..."
+              emptyMessage="No industry found."
+              value={formData.industry_id}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, industry_id: value }))}
+              
+            />
+            {errors.industry_id && <p className="text-red-500 text-sm mt-1">{errors.industry_id}</p>}
+          </div>
+          </div>
+
+          <div>
+            <label htmlFor="experience_id" className="block text-sm font-medium text-gray-700">Experience Level</label>
+            <div className="mt-1">
+            <ComboboxSelect
+              options={experienceLevels.map(level => ({ value: level.id, label: level.name }))}
+              placeholder="Select experience level..."
+              emptyMessage="No experience level found."
+              value={formData.experience_id}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, experience_id: value }))}
+            
+            />
+            {errors.experience_id && <p className="text-red-500 text-sm mt-1">{errors.experience_id}</p>}
+          </div>
+          </div>
+        </div>
       </div>
 
       <div>
-        <label htmlFor="total_yearly_compensation">Total Yearly Compensation</label>
-        <Input
-          id="total_yearly_compensation"
-          name="total_yearly_compensation"
-          type="number"
-          value={formData.total_yearly_compensation}
-          onChange={handleChange}
-        />
-        {errors.total_yearly_compensation && <p className="text-red-500">{errors.total_yearly_compensation}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="base_salary">Base Salary</label>
-        <Input
-          id="base_salary"
-          name="base_salary"
-          type="number"
-          value={formData.base_salary}
-          onChange={handleChange}
-        />
-        {errors.base_salary && <p className="text-red-500">{errors.base_salary}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="education_level">Education Level</label>
-        <Select onValueChange={(value) => setFormData(prev => ({ ...prev, education_level: value }))}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select education level" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="high_school">High School</SelectItem>
-            <SelectItem value="bachelors">Bachelor&apos;s Degree</SelectItem>
-            <SelectItem value="masters">Master&apos;s Degree</SelectItem>
-            <SelectItem value="phd">PhD</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.education_level && <p className="text-red-500">{errors.education_level}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="years_of_experience">Years of Experience</label>
-        <Input
-          id="years_of_experience"
-          name="years_of_experience"
-          type="number"
-          value={formData.years_of_experience}
-          onChange={handleChange}
-        />
-        {errors.years_of_experience && <p className="text-red-500">{errors.years_of_experience}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="years_at_company">Years at Company</label> {/* New label for years_at_company */}
-        <Input
-          id="years_at_company"
-          name="years_at_company"
-          type="number"
-          value={formData.years_at_company} // Bind to formData
-          onChange={handleChange}
-        />
-        {errors.years_at_company && <p className="text-red-500">{errors.years_at_company}</p>} {/* Error message for years_at_company */}
-      </div>
-
-      <div>
-        <label htmlFor="additional_comments">Additional Comments</label>
+        <label htmlFor="additional_comments" className="block text-sm font-medium text-gray-700">Additional Comments</label>
         <Textarea
           id="additional_comments"
           name="additional_comments"
           value={formData.additional_comments}
           onChange={handleChange}
           placeholder="Any additional information..."
+          className="mt-1"
         />
-      </div>
-      <div className="flex flex-col space-y-1.5">
-        <label htmlFor="company_id">Company</label>
-        <ComboboxSelect
-          options={companies.map(company => ({ value: company.id, label: company.name }))}
-          placeholder="Select company..."
-          emptyMessage="No company found."
-          value={formData.company_id}
-          onValueChange={(value) => setFormData(prev => ({ ...prev, company_id: value }))}
-        />
-        {errors.company_id && <p className="text-red-500">{errors.company_id}</p>}
       </div>
 
-      <div className="flex flex-col space-y-1.5">
-        <label htmlFor="location_id">Location</label>
-        <ComboboxSelect
-          options={locations.map(location => ({ value: location.id, label: location.name }))}
-          placeholder="Select location..."
-          emptyMessage="No location found."
-          value={formData.location_id}
-          onValueChange={(value) => setFormData(prev => ({ ...prev, location_id: value }))}
-        />
-        {errors.location_id && <p className="text-red-500">{errors.location_id}</p>}
-      </div>
-
-      <div className="flex flex-col space-y-1.5">
-        <label htmlFor="industry_id">Industry</label>
-        <ComboboxSelect
-          options={industries.map(industry => ({ value: industry.id, label: industry.name }))}
-          placeholder="Select industry..."
-          emptyMessage="No industry found."
-          value={formData.industry_id}
-          onValueChange={(value) => setFormData(prev => ({ ...prev, industry_id: value }))}
-        />
-        {errors.industry_id && <p className="text-red-500">{errors.industry_id}</p>}
-      </div>
-
-      <div className="flex flex-col space-y-1.5">
-        <label htmlFor="experience_id">Experience Level</label>
-        <ComboboxSelect
-          options={experienceLevels.map(level => ({ value: level.id, label: level.name }))}
-          placeholder="Select experience level..."
-          emptyMessage="No experience level found."
-          value={formData.experience_id}
-          onValueChange={(value) => setFormData(prev => ({ ...prev, experience_id: value }))}
-        />
-        {errors.experience_id && <p className="text-red-500">{errors.experience_id}</p>}
-      </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
         <Input
           id="email"
           name="email"
@@ -291,14 +319,21 @@ const SalarySubmissionForm: React.FC = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Your email address"
+          className="mt-1"
         />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}
+        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
       </div>
+
       {submissionError && <p className="text-red-500">{submissionError}</p>}
-      <Button type="submit" disabled={loading}>
-        {loading ? 'Submitting...' : 'Submit Salary Information'}
+
+      <Button type="submit" disabled={loading} className="w-full">
+        {loading ? 
+          <div className="flex items-center justify-center">
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            Submitting...
+          </div> : 'Submit Salary Information'
+        }
       </Button>
-      
     </form>
   );
 }
