@@ -1,10 +1,10 @@
 import { SalaryProvider } from '../contexts/SalaryContext'
-import HomePage from './home/page'
+import SalariesPage from './salaries/page'
 
 export default function Home() {
   return (
     <SalaryProvider>
-      <HomePage />
+      <SalariesPage />
     </SalaryProvider>
   )
 }
