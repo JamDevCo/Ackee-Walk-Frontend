@@ -2,16 +2,11 @@
 import MainLayout from '@/app/layouts/MainLayout'
 import { Skeleton } from '@/components/ui/skeleton' 
 import { Card } from '@/components/ui/card'
-import SalaryListView from '@/components/SalaryListView'
+// import SalaryListView from '@/components/SalaryListView'
 import { useSalaryContext } from '@/contexts/SalaryContext'
-import Salary from '@/types/Salary'
 
 export default function SalaryPage() {
-  const { salaries, loading, error } = useSalaryContext() as unknown as { 
-    salaries: Salary[]; 
-    loading: boolean; 
-    error: string | null; 
-  }
+  const { salaryData, loading, error } = useSalaryContext()
 
   const LoadingSkeleton = () => (
     <Card className="w-full p-4 h-full">
@@ -29,11 +24,9 @@ export default function SalaryPage() {
     </Card>
   )
 
-
   return (
     <MainLayout>
-
-<div className="max-w-8xl mx-auto py-6 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto py-6 sm:px-6 lg:px-8">
         <h2 className="text-2xl font-semibold mt-4 mb-4">Salary List</h2>
         <div className="flex flex-row justify-between gap-6">
           <div className="flex-4">
@@ -41,9 +34,10 @@ export default function SalaryPage() {
               <LoadingSkeleton />
             ) : error ? (
               <p>Error: {error}</p>
-            ) : (
-              <SalaryListView salaries={salaries} />
-            )}
+            ) : salaryData ? (
+              // <SalaryListView salaries={salaryData.data} />
+              <div>test</div>
+            ) : null}
           </div>
           <div className="flex-1">
             <div className="ad-space h-64 flex justify-center items-center bg-gray-100 border border-gray-300 rounded-md">

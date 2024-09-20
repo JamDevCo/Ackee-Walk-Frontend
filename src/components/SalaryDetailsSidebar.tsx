@@ -29,8 +29,7 @@ const SalaryDetailsSidebar: React.FC<SalaryDetailsProps> = ({ salary, isOpen, on
             <DetailItem label="Years of Experience" value={salary.years_of_experience.toString()} />
             <DetailItem label="Industry" value={salary.industry.name} />
             <DetailItem label="Posted At" value={new Date(salary.posted_at).toLocaleDateString()} />
-
-            <DetailItem label="Job Description" value={salary.description} />
+            <DetailItem label="Comments" value={salary.additional_comments} />
           </div>
         </ScrollArea>
       </SheetContent>
