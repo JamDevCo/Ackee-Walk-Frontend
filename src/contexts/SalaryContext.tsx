@@ -1,14 +1,7 @@
 'use client'
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
-
-interface Salary {
-  id: number
-  jobTitle: string
-  company: string
-  salary: number
-  location: string
-}
+import React, { createContext, useContext, useState, useCallback } from 'react'
+import Salary from '@/types/Salary'
 
 interface PaginatedSalaryData {
   current_page: number
@@ -25,11 +18,21 @@ interface PaginatedSalaryData {
   total: number
 }
 
+interface FilterOptions {
+  search?: string
+  industry?: string
+  location?: string
+  experience_level?: string
+  sort_by?: string
+  sort_direction?: 'asc' | 'desc'
+  per_page?: number
+}
+
 interface SalaryContextType {
   salaryData: PaginatedSalaryData | null
   loading: boolean
   error: string | null
-  fetchSalaries: (page?: number) => Promise<void>
+  fetchSalaries: (page?: number, filterOptions?: FilterOptions) => Promise<void>
 }
 
 const SalaryContext = createContext<SalaryContextType | undefined>(undefined)
@@ -47,12 +50,24 @@ export const SalaryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchSalaries = async (page: number = 1) => {
+  const fetchSalaries = useCallback(async (page: number = 1, filterOptions: FilterOptions = {}) => {
     setLoading(true)
     setError(null)
-    console.log(page,"test")
+    
+    const queryParams = new URLSearchParams()
+    queryParams.append('page', page.toString())
+    
+    // Append only if they exist
+    if (filterOptions.search) queryParams.append('search', filterOptions.search)
+    if (filterOptions.industry) queryParams.append('industry', filterOptions.industry)
+    if (filterOptions.location) queryParams.append('location', filterOptions.location)
+    if (filterOptions.experience_level) queryParams.append('experience_level', filterOptions.experience_level)
+    queryParams.append('sort_by', filterOptions.sort_by || 'base_salary')
+    queryParams.append('sort_direction', filterOptions.sort_direction || 'desc')
+    queryParams.append('per_page', (filterOptions.per_page || 20).toString())
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/salaries?page=${page}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/salaries/search?${queryParams}`, {
         headers: {
           'Authorization': `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
         },
@@ -62,15 +77,12 @@ export const SalaryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       }
       const data: PaginatedSalaryData = await response.json()
       setSalaryData(data)
+      console.log(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
-  }
-
-  useEffect(() => {
-    fetchSalaries()
   }, [])
 
   return (

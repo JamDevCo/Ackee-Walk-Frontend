@@ -5,6 +5,7 @@ import EnhancedSalaryListView from '@/components/EnhancedSalaryListView'
 import { Button } from '@/components/ui/button'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
+import { SalaryProvider } from '@/contexts/SalaryContext'
 
 export default function SalaryPage() {
 
@@ -30,7 +31,9 @@ export default function SalaryPage() {
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className="flex flex-row justify-between gap-6">
             <div className="w-full">
-            <EnhancedSalaryListView />
+              <SalaryProvider>
+                <EnhancedSalaryListView />
+              </SalaryProvider>
             </div>
           </div>
         </div>
