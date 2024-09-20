@@ -7,7 +7,7 @@ import SimpleLayout from '@/app/layouts/SimpleLayout'
 export default function SalarySubmissionPage() {
   return (
     <SimpleLayout>
-      <div className="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8 px-4">
         <h1 className="text-3xl font-bold mb-6">Submit Salary Information</h1>
         <Card>
           <CardHeader>
